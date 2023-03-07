@@ -19,6 +19,8 @@ require 'config.php';
         <form method="POST" action="<?=$base;?>/login_action.php">
             <?php if(!empty($_SESSION['flash'])): ?>
                 <?=$_SESSION['flash'];?>
+
+                <!-- Pra limpar a mensagem de erro -->
                 <?php $_SESSION['flash'] = ''; ?>
             <?php endif; ?>
 

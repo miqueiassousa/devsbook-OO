@@ -3,7 +3,18 @@ require_once 'config.php';
 require_once 'models/Auth.php';
 require_once 'dao/PostDaoMysql.php';
 
+/* Toda pagina que precisar verificar se o osuario esta logado basta apenas usar a
+duas linhas abaixo
+
 $auth = new Auth($pdo, $base);
+$userInfo = $auth->checkToken();
+*/
+
+/* Instacia o Auth */
+$auth = new Auth($pdo, $base);
+
+/* Fazer verificação se há uma sessão aberta ou usuario logado*/
+/* Salvar em userinfo */
 $userInfo = $auth->checkToken();
 $activeMenu = 'home';
 

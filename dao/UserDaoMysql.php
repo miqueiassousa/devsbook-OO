@@ -1,4 +1,9 @@
 <?php
+
+/* ESTA CLASSE É PARA RETORNAR OS DADOS DO USUARIO NO BANCO DE DADOS */
+
+
+
 require_once 'models/User.php';
 require_once 'dao/UserRelationDaoMysql.php';
 require_once 'dao/PostDaoMysql.php';
@@ -10,6 +15,7 @@ class UserDaoMysql implements UserDAO {
         $this->pdo = $driver;
     }
 
+    /* é uma função auxiliar a montagem do objeto do usuario */
     private function generateUser($array, $full = false) {
         $u = new User();
         $u->id = $array['id'] ?? 0;
@@ -54,8 +60,11 @@ class UserDaoMysql implements UserDAO {
             $sql->bindValue(':token', $token);
             $sql->execute();
 
+            /* Se há token cria o objeto e retorna */
             if($sql->rowCount() > 0) {
                 $data = $sql->fetch(PDO::FETCH_ASSOC);
+
+                /* generateUser: é uma função auxiliar a montagem do objeto do usuario */
                 $user = $this->generateUser($data);
                 return $user;
             }

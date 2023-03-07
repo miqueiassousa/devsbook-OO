@@ -1,0 +1,4 @@
+1 - Conexão do banco de dados no arquivo config.php
+
+2 - Detectar se o usuario estar logado
+
