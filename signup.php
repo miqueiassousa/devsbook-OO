@@ -36,6 +36,7 @@ require 'config.php';
         </form>
     </section>
 
+    <!-- Script pra criar uma mascara nos campo brithdate de cadastro -->
     <script src="https://unpkg.com/imask"></script>
     <script>
     IMask(

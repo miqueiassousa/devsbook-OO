@@ -9,8 +9,10 @@ $birthdate = filter_input(INPUT_POST, 'birthdate'); // 00/00/0000
 
 if($name && $email && $password && $birthdate) {
 
+    /* VErificar conexão com o banco */
     $auth = new Auth($pdo, $base);
 
+    /* VErificar as divisões do birthdate, transforma em array */
     $birthdate = explode('/', $birthdate);
     if(count($birthdate) != 3) {
         $_SESSION['flash'] = 'Data de nascimento inválida';
@@ -18,6 +20,7 @@ if($name && $email && $password && $birthdate) {
         exit;
     }
 
+    /* VErificar se é uma data valida */
     $birthdate = $birthdate[2].'-'.$birthdate[1].'-'.$birthdate[0];
     if(strtotime($birthdate) === false) {
         $_SESSION['flash'] = 'Data de nascimento inválida';
