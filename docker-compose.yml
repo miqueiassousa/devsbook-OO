@@ -1,0 +1,82 @@
+version: "3.7"  # 1
+
+services:  # 2
+  web:  # 3
+    container_name: meu_php  # 4
+    build: .  # 5
+    volumes:  # 6
+      - ./app:/var/www/html  # 7
+    ports:  # 8
+      - 80:80  # 9
+    networks:  # 10
+      - app_network  # 11
+    restart: unless-stopped  # 12
+    environment:  # 13
+      - PHP_MEMORY_LIMIT=256M  # 14
+      - PHP_DISPLAY_ERRORS=On  # 15
+    logging:  # 16
+      driver: "json-file"  # 17
+      options:  # 18
+        max-size: "10m"  # 19
+        max-file: "3"  # 20
+  
+  mysql:  # 21
+    container_name: meu_mysql  # 22
+    image: mysql:5.7  # 23
+    volumes:  # 24
+      - ./db_data:/var/lib/mysql  # 25
+    environment:  # 26
+      MYSQL_ROOT_PASSWORD: root  # 27
+      MYSQL_DATABASE: docker_database  # 28
+      MYSQL_USER: miqueias  # 29
+      MYSQL_PASSWORD: admin  # 30
+      MYSQL_ALLOW_EMPTY_PASSWORD: "false"  # 31
+      MYSQL_INITDB_ARGS: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci  # 32
+    ports:  # 33
+      - 3306:3306  # 34
+    networks:  # 35
+      - app_network  # 36
+    restart: unless-stopped  # 37
+
+networks:  # 38
+  app_network:  # 39
+    driver: bridge  # 40
+
+# 1: Define a versão do Docker Compose a ser usada.
+# 2: Início da definição de serviços que serão executados em contêineres.
+# 3: Nome do serviço que executa o contêiner PHP com Apache.
+# 4: Nome personalizado para o contêiner.
+# 5: Indica que o Dockerfile na pasta atual deve ser usado para construir a imagem.
+# 6: Monta um volume para persistir dados.
+# 7: Mapeia a pasta local 'site' para o diretório HTML do Apache no contêiner.
+# 8: Define as portas que serão expostas.
+# 9: Mapeia a porta 80 do contêiner para a porta 80 do host.
+# 10: Define a rede na qual este contêiner será conectado.
+# 11: Reinicia o contêiner automaticamente a menos que ele seja parado manualmente.
+# 12: Define variáveis de ambiente para o contêiner.
+# 13: Define o limite de memória do PHP.
+# 14: Ativa a exibição de erros do PHP para depuração.
+# 15: Configuração de logs para o contêiner.
+# 16: Usa o driver de logs 'json-file'.
+# 17: Opções de configuração para o driver de logs.
+# 18: Define o tamanho máximo do arquivo de log.
+# 19: Define o número máximo de arquivos de log a serem mantidos.
+# 20: Nome do serviço que executa o contêiner MySQL.
+# 21: Nome personalizado para o contêiner.
+# 22: Define a imagem do MySQL a ser usada (versão 5.7).
+# 23: Monta um volume para persistir dados do banco de dados.
+# 24: Mapeia a pasta local 'db_data' para o diretório de dados do MySQL no contêiner.
+# 25: Define variáveis de ambiente para o contêiner MySQL.
+# 26: Define a senha do usuário root.
+# 27: Cria um banco de dados chamado 'docker_database' na inicialização.
+# 28: Cria um novo usuário chamado 'miqueias'.
+# 29: Define a senha para o usuário 'miqueias'.
+# 30: Impede a criação de um usuário root sem senha (não recomendado).
+# 31: Define configurações de inicialização do banco de dados.
+# 32: Define as portas que serão expostas.
+# 33: Mapeia a porta 3306 do contêiner para a porta 3306 do host.
+# 34: Define a rede na qual este contêiner será conectado.
+# 35: Reinicia o contêiner automaticamente a menos que ele seja parado manualmente.
+# 36: Início da definição de redes.
+# 37: Nome da rede personalizada.
+# 38: Define o driver da rede como 'bridge'.

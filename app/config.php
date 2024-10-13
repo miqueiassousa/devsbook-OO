@@ -1,11 +1,11 @@
 <?php
 session_start();
-$base = 'http://localhost/devsbook-oo';
+$base = 'http://localhost/';
 
 $db_name = 'devsbook';
-$db_host = 'localhost';
+$db_host = 'mysql';
 $db_user = 'root';
-$db_pass = '';
+$db_pass = 'root';
 
 $maxWidth = 800;
 $maxHeight = 800;

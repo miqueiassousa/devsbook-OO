@@ -25,6 +25,9 @@ class User {
     public $avatar;
     public $cover;
     public $token;
+    public $following;
+    public $followers;
+    public $photos;
 }
 
 /* A Interface permite definir um “contrato” na qual as classes que vão implementá-las 
